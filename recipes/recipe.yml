@@ -12,6 +12,9 @@ modules:
   - type: dnf
     repos:
       cleanup: true
+      copr:
+        enable:
+          - ublue-os/packages
     remove:
       packages:
         - fedora-bookmarks
@@ -49,6 +52,7 @@ modules:
         - solaar
         - solaar-udev
         - sushi
+        - uupd
         - v4l-utils
         # - wireguard-tools # Upstream
   - type: gnome-extensions
@@ -68,46 +72,48 @@ modules:
       repo-name: flathub-verified
       repo-title: "Flathub Verified (System-Wide)"
       install:
-        - Amberol: io.bassi.Amberol
-        - Authenticator: com.belmoussaoui.Authenticator
-        # - Butler: com.cassidyjames.butler
-        - Calculator: org.gnome.Calculator
-        - Camera: org.gnome.Snapshot
-        # - Cameractrls: hu.irl.cameractrls
-        - Cartero: es.danirod.Cartero
-        - Clapper: com.github.rafostar.Clapper
-        - Clocks: org.gnome.clocks
-        - Dev Toolbox: me.iepure.devtoolbox
-        - Disk Usage Analyzer: org.gnome.baobab
-        - Easy Effects: com.github.wwmm.easyeffects
-        - Epiphany: org.gnome.Epiphany
-        - Extension Manager: com.mattjakeman.ExtensionManager
-        - Firefox: org.mozilla.firefox
-        - Firmware: org.gnome.Firmware
-        - Flatseal: com.github.tchx84.Flatseal
-        - Font Viewer: org.gnome.font-viewer
-        - Fragments: de.haeckerfelix.Fragments
-        - Handbrake: fr.handbrake.ghb
-        - Image Viewer: org.gnome.Loupe
-        - Inkscape: org.inkscape.Inkscape
-        - Junction: re.sonny.Junction
-        - Kdenlive: org.kde.kdenlive
-        - LibreOffice: org.libreoffice.LibreOffice
-        - Logs: org.gnome.Logs
-        - Mission Center: io.missioncenter.MissionCenter
-        - Oh My SVG: re.sonny.OhMySVG
-        - Papers: org.gnome.Papers
-        - Pinta: com.github.PintaProject.Pinta
-        - Refine: page.tesk.Refine
-        - Switcheroo: io.gitlab.adhami3310.Converter
-        # - Podcasts: org.gnome.Podcasts
-        - Secrets: org.gnome.World.Secrets
-        - Text Editor: org.gnome.TextEditor
-        # - Ticket Booth: me.iepure.Ticketbooth
-        - Warehouse: io.github.flattool.Warehouse
-        - VSCodium: com.vscodium.codium
+        - io.bassi.Amberol
+        - com.belmoussaoui.Authenticator
+        # - com.cassidyjames.butler # Butler - Home Assistant
+        - org.gnome.Calculator
+        - org.gnome.Snapshot # Camera
+        # - hu.irl.cameractrls
+        - es.danirod.Cartero
+        - com.github.rafostar.Clapper
+        - org.gnome.clocks
+        - me.iepure.devtoolbox
+        - org.gnome.baobab # Disk Usage Analyzer
+        - com.github.wwmm.easyeffects
+        - org.gnome.Epiphany # GNOME Web
+        - com.mattjakeman.ExtensionManager
+        - org.mozilla.firefox
+        - org.gnome.Firmware
+        - com.github.tchx84.Flatseal
+        - org.gnome.font-viewer
+        - de.haeckerfelix.Fragments
+        - fr.handbrake.ghb
+        - org.gnome.Loupe # Image Viewer
+        - org.inkscape.Inkscape
+        - re.sonny.Junction
+        - org.kde.kdenlive
+        - org.libreoffice.LibreOffice
+        - org.gnome.Logs
+        - io.missioncenter.MissionCenter
+        - re.sonny.OhMySVG
+        - org.gnome.Papers
+        - com.github.PintaProject.Pinta
+        - page.tesk.Refine
+        - io.gitlab.adhami3310.Converter # Switcheroo
+        # - org.gnome.Podcasts
+        - org.gnome.World.Secrets
+        - org.gnome.TextEditor
+        # - me.iepure.Ticketbooth
+        - io.github.flattool.Warehouse
+        - com.vscodium.codium
   - type: systemd
     system:
+      enabled:
+        - uupd.service
       masked:
         - rpm-ostree-countme.timer
   - type: files
