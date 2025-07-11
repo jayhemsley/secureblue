@@ -12,9 +12,6 @@ modules:
   - type: dnf
     repos:
       cleanup: true
-      copr:
-        enable:
-          - ublue-os/packages
     remove:
       packages:
         - fedora-bookmarks
@@ -52,7 +49,6 @@ modules:
         - solaar
         - solaar-udev
         - sushi
-        - uupd
         - v4l-utils
         # - wireguard-tools # Upstream
   - type: gnome-extensions
@@ -112,8 +108,6 @@ modules:
         - com.vscodium.codium
   - type: systemd
     system:
-      enabled:
-        - uupd.service
       masked:
         - rpm-ostree-countme.timer
   - type: files
