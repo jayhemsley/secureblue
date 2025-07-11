@@ -120,12 +120,6 @@ modules:
     files:
       - source: system/etc
         destination: /etc
-  - type: bling
-    install:
-      - 1password
-      - dconf-update-service
-      - gnome-vrr
-      # - ublue-update
   - type: script
     scripts:
       - setup.sh
