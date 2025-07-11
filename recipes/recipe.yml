@@ -2,43 +2,125 @@
 # yaml-language-server: $schema=https://schema.blue-build.org/recipe-v1.json
 # image will be published to ghcr.io/<user>/<name>
 name: secureblue
-# description will be included in the image's metadata
-description: This is my personal OS image.
-
-# the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/silverblue-main
-image-version: 41 # latest is also supported if you want new updates ASAP
+description: Custom Secureblue image.
+base-image: ghcr.io/secureblue/silverblue-nvidia-open-hardened
+image-version: latest
 
 # module configuration, executed in order
 # you can include multiple instances of the same module
 modules:
+  - type: dnf
+    repos:
+      cleanup: true
+    remove:
+      packages:
+        - fedora-bookmarks
+        - gnome-classic-session
+        - gnome-initial-Setup
+        - gnome-shell-extension-apps-menu
+        - gnome-shell-extension-launch-new-instance
+        - gnome-shell-extension-places-menu
+        - gnome-shell-extension-window-list
+        - gnome-software
+        - gnome-system-monitor
+        # - gnome-tweaks # Upstream
+        - httpd-filesystem
+        - httpd-tools
+        - malcontent-control
+    install:
+      install-weak-deps: false
+      packages:
+        # - adw-gtk3-theme # Upstream
+        - android-tools
+        - btop
+        - btrfs-assistant
+        - gnome-shell-extension-blur-my-shell
+        - gnome-shell-extension-dash-to-dock
+        - gnome-shell-extension-just-perfection
+        - hplip
+        - libcamera-gstreamer
+        - libcamera-tools
+        - libratbag-ratbagd
+        - lshw
+        - nvtop
+        - podman-compose
+        - powerline-fonts
+        - smartmontools
+        - solaar
+        - solaar-udev
+        - sushi
+        - v4l-utils
+        # - wireguard-tools # Upstream
+  - type: gnome-extensions
+    install:
+      - Alphabetical App Grid
+      - Burn My Windows
+      - Color Picker
+      - Compiz alike magic lamp effect
+      - Emoji Copy
+      - Gnome 4x UI Improvements
+      - GNOME Fuzzy App Search
+      - PiP on top
+      - Tiling Shell
+  - type: default-flatpaks
+    notify: true
+    system:
+      repo-name: flathub-verified
+      repo-title: "Flathub Verified (System-Wide)"
+      install:
+        - Amberol: io.bassi.Amberol
+        - Authenticator: com.belmoussaoui.Authenticator
+        # - Butler: com.cassidyjames.butler
+        - Calculator: org.gnome.Calculator
+        - Camera: org.gnome.Snapshot
+        # - Cameractrls: hu.irl.cameractrls
+        - Cartero: es.danirod.Cartero
+        - Clapper: com.github.rafostar.Clapper
+        - Clocks: org.gnome.clocks
+        - Dev Toolbox: me.iepure.devtoolbox
+        - Disk Usage Analyzer: org.gnome.baobab
+        - Easy Effects: com.github.wwmm.easyeffects
+        - Epiphany: org.gnome.Epiphany
+        - Extension Manager: com.mattjakeman.ExtensionManager
+        - Firefox: org.mozilla.firefox
+        - Firmware: org.gnome.Firmware
+        - Flatseal: com.github.tchx84.Flatseal
+        - Font Viewer: org.gnome.font-viewer
+        - Fragments: de.haeckerfelix.Fragments
+        - Handbrake: fr.handbrake.ghb
+        - Image Viewer: org.gnome.Loupe
+        - Inkscape: org.inkscape.Inkscape
+        - Junction: re.sonny.Junction
+        - Kdenlive: org.kde.kdenlive
+        - LibreOffice: org.libreoffice.LibreOffice
+        - Logs: org.gnome.Logs
+        - Mission Center: io.missioncenter.MissionCenter
+        - Oh My SVG: re.sonny.OhMySVG
+        - Papers: org.gnome.Papers
+        - Pinta: com.github.PintaProject.Pinta
+        - Refine: page.tesk.Refine
+        - Switcheroo: io.gitlab.adhami3310.Converter
+        # - Podcasts: org.gnome.Podcasts
+        - Secrets: org.gnome.World.Secrets
+        - Text Editor: org.gnome.TextEditor
+        # - Ticket Booth: me.iepure.Ticketbooth
+        - Warehouse: io.github.flattool.Warehouse
+        - VSCodium: com.vscodium.codium
+  - type: systemd
+    system:
+      masked:
+        - rpm-ostree-countme.timer
   - type: files
     files:
-      - source: system
-        destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
-
-  - type: rpm-ostree
-    repos:
-      - https://copr.fedorainfracloud.org/coprs/atim/starship/repo/fedora-%OS_VERSION%/atim-starship-fedora-%OS_VERSION%.repo
+      - source: system/etc
+        destination: /etc
+  - type: bling
     install:
-      - micro
-      - starship
-    remove:
-      # example: removing firefox (in favor of the flatpak)
-      # "firefox" is the main package, "firefox-langpacks" is a dependency
-      - firefox
-      - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
-
-  - type: default-flatpaks
-    notify: true # Send notification after install/uninstall is finished (true/false)
-    system:
-      # If no repo information is specified, Flathub will be used by default
-      install:
-        - org.mozilla.firefox
-        - org.gnome.Loupe
-      remove:
-        - org.gnome.eog
-    user: {} # Also add Flathub user repo, but no user packages
-
-  - type: signing # this sets up the proper policy & signing files for signed images to work fully
-
+      - 1password
+      - dconf-update-service
+      - gnome-vrr
+      # - ublue-update
+  - type: script
+    scripts:
+      - setup.sh
+  - type: signing
