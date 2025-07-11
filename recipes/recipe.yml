@@ -110,12 +110,14 @@ modules:
     system:
       enabled:
         - dconf-update.service
+        - dirty-centisecs.service
+        - memory-tweaks-gidro.service
       masked:
         - rpm-ostree-countme.timer
   - type: files
     files:
-      - source: system/etc
-        destination: /etc
+      - source: system
+        destination: /
   - type: script
     scripts:
       - setup.sh
