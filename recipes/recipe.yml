@@ -65,8 +65,6 @@ modules:
   - type: default-flatpaks
     notify: true
     system:
-      repo-name: flathub-verified
-      repo-title: "Flathub Verified (System-Wide)"
       install:
         - io.bassi.Amberol
         - com.belmoussaoui.Authenticator
@@ -106,8 +104,12 @@ modules:
         # - me.iepure.Ticketbooth
         - io.github.flattool.Warehouse
         - com.vscodium.codium
+        - org.gtk.Gtk3theme.adw-gtk3
+        - org.gtk.Gtk3theme.adw-gtk3-dark
   - type: systemd
     system:
+      enabled:
+        - dconf-update.service
       masked:
         - rpm-ostree-countme.timer
   - type: files
