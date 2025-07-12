@@ -29,6 +29,10 @@ rm -rf /tmp/monaspace-font*
 fc-cache -fv
 
 # Remove avif thumbnailer, as HEIF thumbnailer already covers it
+rm /usr/share/thumbnailers/avif.thumbnailer
+
+# Install DevPod
+curl -L -o devpod "https://github.com/loft-sh/devpod/releases/latest/download/devpod-linux-amd64" && install -c -m 0755 devpod /usr/local/bin && rm -f devpod
 
 # Extra guards against using package managers
 PACKAGE_MANAGERS=(
