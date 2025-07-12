@@ -18,6 +18,7 @@ modules:
       cleanup: true
       files:
         - 1password.repo
+        - vscodium.repo
       keys:
         - https://downloads.1password.com/linux/keys/1password.asc # 1Password
         - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg # VSCodium
