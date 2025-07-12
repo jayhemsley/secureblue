@@ -19,7 +19,8 @@ modules:
       files:
         - 1password.repo
       keys:
-        - https://downloads.1password.com/linux/keys/1password.asc
+        - https://downloads.1password.com/linux/keys/1password.asc # 1Password
+        - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg # VSCodium
     optfix:
       - 1Password
     remove:
@@ -44,6 +45,8 @@ modules:
         - 1password
         - android-tools
         - btop
+        - codium
+        - docker-compose
         - gnome-shell-extension-blur-my-shell
         - gnome-shell-extension-dash-to-dock
         - gnome-shell-extension-just-perfection
@@ -115,7 +118,6 @@ modules:
         - org.gnome.TextEditor
         # - me.iepure.Ticketbooth
         - io.github.flattool.Warehouse
-        - com.vscodium.codium
   - type: systemd
     system:
       enabled:
@@ -130,4 +132,5 @@ modules:
   - type: script
     scripts:
       - setup.sh
+  - type: gschema-overrides
   - type: signing
