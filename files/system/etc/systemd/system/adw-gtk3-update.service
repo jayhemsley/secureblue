@@ -1,6 +1,5 @@
 [Unit]
-Description=Update the dconf database onboot
-Documentation=https://github.com/coreos/rpm-ostree/issues/1944
+Description=Update adw-gtk3 theme
 
 [Service]
 Type=oneshot

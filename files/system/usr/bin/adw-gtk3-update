@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # Update the adw-gtk3 theme as needed.
-
+USER_HOME=$(getent passwd "$USER" | cut -d: -f6)
 SKEL_THEME_DIR="/etc/skel/.local/share/themes"
-USER_THEME_DIR="$HOME/.local/share/themes"
+USER_THEME_DIR="$USER_HOME/.local/share/themes"
 SKEL_VERSION_FILE="$SKEL_THEME_DIR/.adw-gtk3-version"
 USER_VERSION_FILE="$USER_THEME_DIR/.adw-gtk3-version"
 
