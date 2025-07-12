@@ -4,7 +4,6 @@ Documentation=https://github.com/coreos/rpm-ostree/issues/1944
 
 [Service]
 Type=oneshot
-RemainAfterExit=yes
 ExecStart=/usr/bin/dconf update
 
 [Install]

@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# Update the adw-gtk3 theme as needed.
+
+SKEL_THEME_DIR="/etc/skel/.local/share/themes"
+USER_THEME_DIR="$HOME/.local/share/themes"
+SKEL_VERSION_FILE="$SKEL_THEME_DIR/.adw-gtk3-version"
+USER_VERSION_FILE="$USER_THEME_DIR/.adw-gtk3-version"
+
+SKEL_VER=$( [ -f "$SKEL_VERSION_FILE" ] && cat "$SKEL_VERSION_FILE" || echo "0" )
+USER_VER=$( [ -f "$USER_VERSION_FILE" ] && cat "$USER_VERSION_FILE" || echo "0" )
+
+# If user version is missing or less than skel version, copy theme
+if [ ! -f "$USER_VERSION_FILE" ] || \
+   [ "$(printf '%s\n' "$SKEL_VER" "$USER_VER" | sort -V | head -n1)" != "$SKEL_VER" ]; then
+    mkdir -p "$USER_THEME_DIR"
+    cp -a "$SKEL_THEME_DIR/." "$USER_THEME_DIR/"
+fi
+
+# Configure flatpak if not already set
+if ! flatpak override --show | grep -q "filesystems=xdg-data/themes"; then
+    flatpak override --filesystem=xdg-data/themes:ro
+fi
+
+if ! flatpak mask --list | grep -q "org.gtk.Gtk3theme.adw-gtk3$"; then
+    flatpak mask org.gtk.Gtk3theme.adw-gtk3
+fi
+
+if ! flatpak mask --list | grep -q "org.gtk.Gtk3theme.adw-gtk3-dark$"; then
+    flatpak mask org.gtk.Gtk3theme.adw-gtk3-dark
+fi

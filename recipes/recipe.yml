@@ -16,8 +16,15 @@ modules:
   - type: dnf
     repos:
       cleanup: true
+      files:
+        - 1password.repo
+      keys:
+        - https://downloads.1password.com/linux/keys/1password.asc
+    optfix:
+      - 1Password
     remove:
       packages:
+        - adw-gtk3-theme
         - fedora-bookmarks
         - gnome-classic-session
         - gnome-initial-Setup
@@ -27,17 +34,16 @@ modules:
         - gnome-shell-extension-window-list
         - gnome-software
         - gnome-system-monitor
-        # - gnome-tweaks # Upstream
+        - gnome-tweaks
         - httpd-filesystem
         - httpd-tools
         - malcontent-control
     install:
       install-weak-deps: false
       packages:
-        # - adw-gtk3-theme # Upstream
+        - 1password
         - android-tools
         - btop
-        - btrfs-assistant
         - gnome-shell-extension-blur-my-shell
         - gnome-shell-extension-dash-to-dock
         - gnome-shell-extension-just-perfection
@@ -47,6 +53,7 @@ modules:
         - libratbag-ratbagd
         - lshw
         - nvtop
+        - p7zip-plugins
         - podman-compose
         - powerline-fonts
         - smartmontools
@@ -54,7 +61,6 @@ modules:
         - solaar-udev
         - sushi
         - v4l-utils
-        # - wireguard-tools # Upstream
   - type: gnome-extensions
     install:
       - Alphabetical App Grid
@@ -69,6 +75,8 @@ modules:
   - type: default-flatpaks
     notify: true
     system:
+      repo-name: flathub-verified
+      repo-title: "Flathub Verified (System)"
       install:
         - io.bassi.Amberol
         - com.belmoussaoui.Authenticator
@@ -108,16 +116,17 @@ modules:
         # - me.iepure.Ticketbooth
         - io.github.flattool.Warehouse
         - com.vscodium.codium
-        - org.gtk.Gtk3theme.adw-gtk3
-        - org.gtk.Gtk3theme.adw-gtk3-dark
   - type: systemd
     system:
       enabled:
+        - adw-gtk3-update.service
         - dconf-update.service
         - dirty-centisecs.service
         - memory-tweaks-gidro.service
       masked:
         - rpm-ostree-countme.timer
+  - type: justfiles
+    validate: true
   - type: script
     scripts:
       - setup.sh

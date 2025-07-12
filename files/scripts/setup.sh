@@ -2,15 +2,22 @@
 
 set -oue pipefail
 
+# Install adw-gtk3
+VER=$(basename $(curl --retry 3 -Ls -o /dev/null -w %{url_effective} https://github.com/lassekongo83/adw-gtk3/releases/latest)) && curl --retry 3 -fLs --create-dirs https://github.com/lassekongo83/adw-gtk3/releases/download/${VER}/adw-gtk3${VER}.tar.xz -o /tmp/adw-gtk3.tar.gz
+
+mkdir -p /etc/skel/.local/share/themes/
+tar -xf /tmp/adw-gtk3.tar.gz -C /etc/skel/.local/share/themes/
+rm /tmp/adw-gtk3.tar.gz
+
+echo "${VER#v}" > /etc/skel/.local/share/themes/.adw-gtk3-version
+
 # Install WhiteSur Icon Theme
 mkdir -p /tmp/WhiteSur-icons
 git clone https://github.com/vinceliuice/WhiteSur-icon-theme.git /tmp/WhiteSur-icons
 /tmp/WhiteSur-icons/install.sh -a -b -d '/usr/share/icons'
 rm -rf /tmp/WhiteSur-icons
 
-# Fonts: Monaspace, Microsoft Fonts, SF Pro
-FONTS_DIR="/usr/share/fonts"
-
+# Monaspace Fonts
 DOWNLOAD_URL=$(curl --retry 3 https://api.github.com/repos/githubnext/monaspace/releases/latest | jq -r '.assets[] | select(.name| test(".*.zip$")).browser_download_url')
 curl --retry 3 -Lo /tmp/monaspace-font.zip "$DOWNLOAD_URL"
 
@@ -18,10 +25,6 @@ unzip -qo /tmp/monaspace-font.zip -d /tmp/monaspace-font
 mkdir -p /usr/share/fonts/monaspace
 mv /tmp/monaspace-font/monaspace-v*/fonts/otf/* /usr/share/fonts/monaspace/
 rm -rf /tmp/monaspace-font*
-
-curl --retry 3 -Lo ${FONTS_DIR}/fonts.tar.xz "https://linux.hemsley.dev/019733d3-970c-7168-978d-523401ccbe3a-fonts.tar.xz"
-tar -xvJf ${FONTS_DIR}/fonts.tar.xz -C ${FONTS_DIR}/
-rm ${FONTS_DIR}/fonts.tar.xz
 
 fc-cache -fv
 
