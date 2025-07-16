@@ -6,8 +6,6 @@ description: Custom Secureblue image.
 base-image: ghcr.io/secureblue/silverblue-nvidia-open-hardened
 image-version: latest
 
-# module configuration, executed in order
-# you can include multiple instances of the same module
 modules:
   - type: files
     files:
@@ -18,10 +16,8 @@ modules:
       cleanup: true
       files:
         - 1password.repo
-        - vscodium.repo
       keys:
-        - https://downloads.1password.com/linux/keys/1password.asc # 1Password
-        - https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/-/raw/master/pub.gpg # VSCodium
+        - https://downloads.1password.com/linux/keys/1password.asc
     optfix:
       - 1Password
     remove:
@@ -44,9 +40,10 @@ modules:
       install-weak-deps: false
       packages:
         - 1password
+        - adobe-source-code-pro-fonts
         - android-tools
         - btop
-        - codium
+        - ddcutil
         - docker-compose
         - gnome-shell-extension-blur-my-shell
         - gnome-shell-extension-dash-to-dock
@@ -56,6 +53,7 @@ modules:
         - libcamera-tools
         - libratbag-ratbagd
         - lshw
+        - nvim
         - nvtop
         - p7zip-plugins
         - podman-compose
@@ -63,61 +61,57 @@ modules:
         - smartmontools
         - solaar
         - solaar-udev
-        - sushi
+        - tmux
         - v4l-utils
   - type: gnome-extensions
     install:
       - Alphabetical App Grid
       - Burn My Windows
-      - Color Picker
+      - Bluetooth Battery Meter
       - Compiz alike magic lamp effect
       - Emoji Copy
       - Gnome 4x UI Improvements
       - GNOME Fuzzy App Search
       - PiP on top
+      - Search Light
       - Tiling Shell
   - type: default-flatpaks
     notify: true
     system:
-      repo-name: flathub-verified
-      repo-title: "Flathub Verified (System)"
       install:
         - io.bassi.Amberol
         - com.belmoussaoui.Authenticator
-        # - com.cassidyjames.butler # Butler - Home Assistant
         - org.gnome.Calculator
-        - org.gnome.Snapshot # Camera
-        # - hu.irl.cameractrls
+        - org.gnome.Snapshot
+        - hu.irl.cameractrls
         - es.danirod.Cartero
         - com.github.rafostar.Clapper
         - org.gnome.clocks
         - me.iepure.devtoolbox
-        - org.gnome.baobab # Disk Usage Analyzer
+        - org.gnome.baobab
         - com.github.wwmm.easyeffects
-        - org.gnome.Epiphany # GNOME Web
+        - org.gnome.Epiphany
         - com.mattjakeman.ExtensionManager
         - org.mozilla.firefox
-        - org.gnome.Firmware
         - com.github.tchx84.Flatseal
         - org.gnome.font-viewer
         - de.haeckerfelix.Fragments
         - fr.handbrake.ghb
-        - org.gnome.Loupe # Image Viewer
+        - org.gnome.Loupe
         - org.inkscape.Inkscape
         - re.sonny.Junction
         - org.kde.kdenlive
         - org.libreoffice.LibreOffice
         - org.gnome.Logs
         - io.missioncenter.MissionCenter
+        - org.gnome.NautilusPreviewer
         - re.sonny.OhMySVG
         - org.gnome.Papers
         - com.github.PintaProject.Pinta
-        - page.tesk.Refine
-        - io.gitlab.adhami3310.Converter # Switcheroo
-        # - org.gnome.Podcasts
+        - io.gitlab.adhami3310.Converter
+        - org.gnome.Podcasts
         - org.gnome.World.Secrets
         - org.gnome.TextEditor
-        # - me.iepure.Ticketbooth
         - io.github.flattool.Warehouse
   - type: systemd
     system:
