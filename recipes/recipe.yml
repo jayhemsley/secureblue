@@ -19,7 +19,7 @@ modules:
       keys:
         - https://downloads.1password.com/linux/keys/1password.asc
       copr:
-        - the4runner/firefox-dev fedora-42-x86_64
+        - the4runner/firefox-dev/fedora-42-x86_64
     optfix:
       - 1Password
       - firefox-dev
