@@ -28,7 +28,7 @@ modules:
         - adw-gtk3-theme
         - fedora-bookmarks
         - gnome-classic-session
-        - gnome-initial-Setup
+        - gnome-initial-setup
         - gnome-shell-extension-apps-menu
         - gnome-shell-extension-launch-new-instance
         - gnome-shell-extension-places-menu
