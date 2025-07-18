@@ -16,10 +16,10 @@ modules:
       cleanup: true
       files:
         - 1password.repo
+        - https://copr.fedorainfracloud.org/coprs/the4runner/firefox-dev/repo/fedora-42/the4runner-firefox-dev-fedora-42.repo
       keys:
         - https://downloads.1password.com/linux/keys/1password.asc
-      copr:
-        - the4runner/firefox-dev/fedora-42-x86_64
+        - https://download.copr.fedorainfracloud.org/results/the4runner/firefox-dev/pubkey.gpg
     optfix:
       - 1Password
       - firefox-dev
