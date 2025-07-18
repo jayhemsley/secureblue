@@ -18,8 +18,11 @@ modules:
         - 1password.repo
       keys:
         - https://downloads.1password.com/linux/keys/1password.asc
+      copr:
+        - the4runner/firefox-dev
     optfix:
       - 1Password
+      - firefox-dev
     remove:
       packages:
         - adw-gtk3-theme
@@ -45,6 +48,7 @@ modules:
         - btop
         - ddcutil
         - docker-compose
+        - firefox-dev
         - gnome-shell-extension-blur-my-shell
         - gnome-shell-extension-dash-to-dock
         - gnome-shell-extension-just-perfection
@@ -80,7 +84,6 @@ modules:
     system:
       install:
         - io.bassi.Amberol
-        - com.belmoussaoui.Authenticator
         - org.gnome.Calculator
         - org.gnome.Snapshot
         - hu.irl.cameractrls
@@ -92,10 +95,8 @@ modules:
         - com.github.wwmm.easyeffects
         - org.gnome.Epiphany
         - com.mattjakeman.ExtensionManager
-        - org.mozilla.firefox
         - com.github.tchx84.Flatseal
         - org.gnome.font-viewer
-        - de.haeckerfelix.Fragments
         - fr.handbrake.ghb
         - org.gnome.Loupe
         - org.inkscape.Inkscape
@@ -105,12 +106,10 @@ modules:
         - org.gnome.Logs
         - io.missioncenter.MissionCenter
         - org.gnome.NautilusPreviewer
-        - re.sonny.OhMySVG
+        - com.obsproject.Studio
         - org.gnome.Papers
         - com.github.PintaProject.Pinta
-        - io.gitlab.adhami3310.Converter
         - org.gnome.Podcasts
-        - org.gnome.World.Secrets
         - org.gnome.TextEditor
         - io.github.flattool.Warehouse
   - type: systemd
@@ -122,8 +121,6 @@ modules:
         - memory-tweaks-gidro.service
       masked:
         - rpm-ostree-countme.timer
-  - type: justfiles
-    validate: true
   - type: script
     scripts:
       - setup.sh
